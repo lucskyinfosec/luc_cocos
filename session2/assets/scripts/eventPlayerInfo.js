@@ -1,44 +1,47 @@
 import { AccountManager } from "./AccountManager";
+
 cc.Class({
     extends: cc.Component,
 
     properties: {
-        spriteAvatar:cc.Sprite,
-        labelUsername:cc.Label,
-        newImagePath:null,
+        spriteAvatar: cc.Sprite,
+        labelUsername: cc.Label,
+        newImagePath: undefined, // Remove null
     },
 
-    onLoad () {
-        this.accountManager=new AccountManager()
-        let account=this.accountManager.getCurrentAccount()
-        cc.log(account)
-        this.labelUsername.string=account[0]
-        this.newImagePath=account[2]
+    onLoad() {
+        this.accountManager = new AccountManager();
+        let account = this.accountManager.getCurrentAccount();
+        cc.log("account ở playInfo:", account);
+        this.labelUsername.string = account[0];
+        this.newImagePath = account[2];
         this.changeSpriteImage();
     },
-    changeSpriteImage() {
-        // Load hình mới từ đường dẫn
-        cc.loader.load(this.newImagePath+".png", (err, texture) => {
-            if (err) {
-                console.error("Error loading new image:", err);
-                return;
-            }
 
-            // Tạo một SpriteFrame mới từ texture
-            const spriteFrame = new cc.SpriteFrame(texture);
-            
-            // Đặt hình mới cho Sprite
-            this.spriteAvatar.spriteFrame = spriteFrame;
+    changeSpriteImage() {
+        // var self = this;
+        // var path = "test assets/img/avatar/" + this.newImagePath;
+        
+        // cc.loader.loadRes(path, cc.SpriteFrame, function (err, spriteFrame) {
+        //     if (!err) {
+        //         // Set the new spriteFrame for the spriteAvatar
+        //         self.spriteAvatar.spriteFrame = spriteFrame;
+        //     } else {
+        //         cc.error("Failed to load new image:", err);
+        //     }
+        // });
+        var self = this;
+        var url = "assets/img/avatar/" + this.newImagePath
+        cc.loader.loadRes(url, cc.SpriteFrame, function (err, spriteFrame) {
+        var node = new cc.Node("New Sprite");
+        var sprite = node.addComponent(cc.Sprite);
+        sprite.spriteFrame = spriteFrame;
+        node.parent = self.node
         });
     },
-    start () {
+    
 
+    start() {
+        // ...
     },
-
-    // update (dt) {},
 });
-
-
-
-
-

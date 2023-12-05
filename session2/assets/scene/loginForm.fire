@@ -168,7 +168,7 @@
       "__type__": "cc.Vec3",
       "x": 0,
       "y": 0,
-      "z": 274.5300529996671
+      "z": 517.8831914630944
     },
     "_scale": {
       "__type__": "cc.Vec3",
@@ -339,7 +339,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 208.95,
+      "width": 209,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -1977,8 +1977,8 @@
     "clickEvents": [],
     "_N$interactable": true,
     "_N$enableAutoGrayEffect": false,
-    "_N$transition": 3,
-    "transition": 3,
+    "_N$transition": 1,
+    "transition": 1,
     "_N$normalColor": {
       "__type__": "cc.Color",
       "r": 15,

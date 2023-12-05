@@ -14,10 +14,11 @@ export class AccountManager {
             cc.error('LocalStorage is not available.');
         }
     }
+    
 
     // Thêm tài khoản mới vào danh sách và lưu vào LocalStorage
     addAccount(username, password, avatar=null) {
-        const newAccount = { username, password, avatar  };
+        const newAccount = { username, password, avatar};
         this.accountList.push(newAccount);
 
         // Kiểm tra xem cc.sys.localStorage có sẵn hay không
@@ -38,16 +39,35 @@ export class AccountManager {
         cc.log('Đăng nhập thất bại!');
         return false; // Trả về false nếu không tìm thấy thông tin đăng nhập
     }
-    setAvatar(username, avatar){
+    setAvatar(username, newAvatar) {
+        console.log('Before update:', this.accountList);
         for (let i = 0; i < this.accountList.length; i++) {
             const account = this.accountList[i];
             if (account.username === username) {
-                this.accountList[i].avatar=avatar;
-                return true // Trả về true nếu thông tin đăng nhập đúng
+                this.accountList[i].avatar = newAvatar;
+    
+                // Update the accountList in LocalStorage
+                this.updateLocalStorage();
+    
+                console.log('After update:', this.accountList);
+                return true;
             }
         }
-        cc.log("Set avatar loi")
+    
+        console.log("Set avatar loi");
+        return false;
     }
+    
+    
+    // Add a helper function to update the accountList in LocalStorage
+    updateLocalStorage() {
+        if (cc.sys.localStorage) {
+            cc.sys.localStorage.setItem('accountList', JSON.stringify(this.accountList));
+        } else {
+            cc.error('LocalStorage is not available.');
+        }
+    }
+    
     
 
     // Kiểm tra thông tin đăng nhập

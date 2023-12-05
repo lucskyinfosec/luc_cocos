@@ -54,7 +54,7 @@ cc.Class({
         },
         layoutAvatar: {
             default: null,
-            type: cc.Node
+            type: cc.Layout
         },
     },
 
@@ -63,24 +63,19 @@ cc.Class({
         // Disable button ban đầu
         this.btnCreate.interactable = false;
 
-        // Thêm EventListener cho mỗi ảnh trong layout
-        const images = this.layoutAvatar.children;
-        images.forEach((image) => {
-            image.on(cc.Node.EventType.MOUSE_DOWN, this.onImageClick, this);
-        });
-
-        // Thêm EventListener cho button
-        this.btnCreate.node.on(cc.Node.EventType.MOUSE_DOWN, this.onCreateButtonClick, this);
+        
     },
 
     onImageClick(event) {
         // Enable button khi người dùng click vào ảnh
         this.btnCreate.interactable = true;
-        
         // Lấy tên của ảnh đã click
         const imageName = event.target.name;
-        console.log("Ảnh đã được click! Tên: ", imageName);
+        console.log("Ảnh đã được click là: ", imageName);
+        console.log("Username", this.accountManager.getCurrentAccount()[0])
         this.accountManager.setAvatar(this.accountManager.getCurrentAccount()[0],imageName)
+        
+        cc.log(this.accountManager.setAvatar(this.accountManager.getCurrentAccount()[0],imageName))
         cc.log("Tài khoản hiện tại", this.accountManager.getCurrentAccount())
     },
 
@@ -91,6 +86,16 @@ cc.Class({
         //     cc.log('Scene switched successfully');
         // });
     },
+    onUpdate(){
+        // Thêm EventListener cho mỗi ảnh trong layout
+        let images = this.layoutAvatar.children;
+        images.forEach((image) => {
+            image.on(cc.Node.EventType.MOUSE_DOWN, this.onImageClick, this);
+        });
+
+        // Thêm EventListener cho button
+        this.btnCreate.node.on(cc.Node.EventType.MOUSE_DOWN, this.onCreateButtonClick, this);
+    }
 
     // Rest of your code...
 });

@@ -63,6 +63,7 @@ cc.Class({
     },
 
     onLoad: function () {
+        cc.sys.localStorage.clear();
         this.btnSignin.node.on('click', this.onButtonClick, this);
         this.btnSignin.interactable = false;
 
@@ -76,6 +77,7 @@ cc.Class({
         // Lấy tên đăng nhập và mật khẩu từ ô nhập liệu
         const username = this.edtUsername.string;
         const password = this.edtPassword.string;
+        
 
         // Lưu vào LocalStorage thông qua AccountManager
         this.accountManager.addAccount(username, password);
