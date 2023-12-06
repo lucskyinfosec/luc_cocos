@@ -63,7 +63,7 @@ cc.Class({
     },
 
     onLoad: function () {
-        cc.sys.localStorage.clear();
+        // cc.sys.localStorage.clear();
         this.btnSignin.node.on('click', this.onButtonClick, this);
         this.btnSignin.interactable = false;
 

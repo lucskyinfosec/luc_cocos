@@ -54,7 +54,7 @@ cc.Class({
         },
         layoutAvatar: {
             default: null,
-            type: cc.Layout
+            type: cc.Node
         },
     },
 
@@ -70,16 +70,21 @@ cc.Class({
         // Enable button khi người dùng click vào ảnh
         this.btnCreate.interactable = true;
         // Lấy tên của ảnh đã click
-        const imageName = event.target.name;
+        const imageName = event.target;
+        cc.log("type"+typeof imageName)
         console.log("Ảnh đã được click là: ", imageName);
-        console.log("Username", this.accountManager.getCurrentAccount()[0])
-        this.accountManager.setAvatar(this.accountManager.getCurrentAccount()[0],imageName)
+        // console.log("Username", this.accountManager.getCurrentAccount()[0])
+        // this.accountManager.setAvatar(this.accountManager.getCurrentAccount()[0],imageName)
         
-        cc.log(this.accountManager.setAvatar(this.accountManager.getCurrentAccount()[0],imageName))
-        cc.log("Tài khoản hiện tại", this.accountManager.getCurrentAccount())
+        // cc.log(this.accountManager.setAvatar(this.accountManager.getCurrentAccount()[0],imageName))
+        // cc.log("Tài khoản hiện tại", this.accountManager.getCurrentAccount())
     },
 
     onCreateButtonClick() {
+        // Trong Scene hiện tại, khi bạn muốn chuyển đến Scene mới
+        
+        // cc.director.loadScene("NewScene");
+
         // Chuyển sang scene khác khi người dùng click vào button
         cc.director.loadScene("playForm");
         // cc.director.loadScene('playForm', function () {

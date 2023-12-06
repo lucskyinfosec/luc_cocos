@@ -1,5 +1,4 @@
 import { AccountManager } from "./AccountManager";
-
 cc.Class({
     extends: cc.Component,
 
@@ -15,6 +14,7 @@ cc.Class({
         cc.log("account ở playInfo:", account);
         this.labelUsername.string = account[0];
         this.newImagePath = account[2];
+        
         this.changeSpriteImage();
     },
 
@@ -30,14 +30,23 @@ cc.Class({
         //         cc.error("Failed to load new image:", err);
         //     }
         // });
-        var self = this;
-        var url = "assets/img/avatar/" + this.newImagePath
-        cc.loader.loadRes(url, cc.SpriteFrame, function (err, spriteFrame) {
-        var node = new cc.Node("New Sprite");
-        var sprite = node.addComponent(cc.Sprite);
-        sprite.spriteFrame = spriteFrame;
-        node.parent = self.node
-        });
+        // Trong Scene mới, khi Scene được khởi tạo
+        cc.systemEvent.on('sendSpriteFrameEvent', this.onReceiveSpriteFrame, this);
+
+        // var self = this;
+        // var url = "assets/img/avatar/" + this.newImagePath
+        // cc.loader.loadRes(url, cc.SpriteFrame, function (err, spriteFrame) {
+        // var node = new cc.Node("New Sprite");
+        // var sprite = node.addComponent(cc.Sprite);
+        // sprite.spriteFrame = spriteFrame;
+        // node.parent = self.node
+        // });
+    },
+    onReceiveSpriteFrame(spriteFrame) {
+        // Xử lý sprite frame nhận được
+        if (this.spriteAvatar) {
+            this.spriteAvatar.spriteFrame = spriteFrame;
+        }
     },
     
 

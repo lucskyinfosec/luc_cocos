@@ -9,6 +9,7 @@ cc.Class({
 
     onLoad() {
         this.accountManager = new AccountManager();
+        
         this.createAccountButton.interactable = false;  // Bắt đầu với nút bị vô hiệu hóa
         this.registerAvatarClickEvent();
     },
@@ -22,26 +23,36 @@ cc.Class({
 
     onAvatarClick(event) {
         // Lấy tên của avatar được chọn
-        const selectedAvatarName = event.currentTarget.name;
+        const selectedAvatarName = event.currentTarget;
+        cc.log("type ", typeof selectedAvatarName)
         cc.log('Selected Avatar:', selectedAvatarName);
 
         // Cho phép nút tạo tài khoản
         this.createAccountButton.interactable = true;
-        this.accountManager.setAvatar(this.accountManager.getCurrentAccount()[0],selectedAvatarName)
-        // Ghi tên avatar đã chọn vào LocalStorage hoặc nơi bạn lưu trữ dữ liệu
-        this.accountManager.setCurrentAccount(this.accountManager.getCurrentAccount()[0],this.accountManager.getCurrentAccount()[1], selectedAvatarName)
+        // this.accountManager.setAvatar(this.accountManager.getCurrentAccount()[0],selectedAvatarName)
+        // // Ghi tên avatar đã chọn vào LocalStorage hoặc nơi bạn lưu trữ dữ liệu
+        // this.accountManager.setCurrentAccount(this.accountManager.getCurrentAccount()[0],this.accountManager.getCurrentAccount()[1], selectedAvatarName)
         cc.log("Tài khoản hiện tại", this.accountManager.getCurrentAccount())
     },
 
     start() {
         // Đặt sự kiện cho nút tạo tài khoản
         this.createAccountButton.node.on(cc.Node.EventType.TOUCH_START, this.onCreateAccountClick, this);
+        // let images = this.avatarLayout.children;
+        // images.forEach((image) => {
+        //     image.on(cc.Node.EventType.MOUSE_DOWN, this.onAvatarClick, this);
+        // });
+
     },
 
     onCreateAccountClick() {
         // Xử lý khi nút tạo tài khoản được nhấn, chẳng hạn chuyển scene
-        cc.log('Create Account Button Clicked!');
-        cc.director.loadScene("playForm");
+        if (this.createAccountButton.interactable){
+            
+            cc.log('Create Account Button Clicked!');
+            cc.director.loadScene("playForm");
+        }
+
         // Chuyển scene hoặc thực hiện hành động mong muốn ở đây
     },
 });
